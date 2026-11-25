@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="ru" data-theme="neon">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nikita Zavarzin — сайты, Telegram Mini Apps и боты</title>
+<meta name="description" content="Разработка сайтов, лендингов, Telegram Mini Apps и ботов под ключ: структура, дизайн, код, сервер и запуск. Работы, навыки и контакты.">
+<meta name="theme-color" content="#09050f">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nikita Zavarzin — сайты и Telegram Mini Apps">
+<meta property="og:description" content="Сайты, мини-приложения и боты в Telegram под ключ. Смотрите работы и пишите в Telegram.">
+<!-- адрес сайта: если он поменяется, замените zav1skq.github.io здесь в двух строках -->
+<meta property="og:url" content="https://zav1skq.github.io/">
+<meta property="og:image" content="https://zav1skq.github.io/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M7 0h25v25l-7 7H0V7z' fill='%23ff2bd6'/%3E%3Cpath d='M10 10h12L10 22h12' fill='none' stroke='%2309050f' stroke-width='3.4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Unbounded:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>(function(d){d.classList.add('js');try{if(sessionStorage.getItem('zv-boot'))d.classList.add('noboot');var t=localStorage.getItem('zv-theme');if(/^(neon|yellow|red|acid)$/.test(t))d.dataset.theme=t}catch(e){}})(document.documentElement)</script>
+</head>
+<body>
+<canvas id="px" aria-hidden="true"></canvas>
+<div class="fx-vig"></div><div class="fx-scan"></div><div class="fx-noise"></div><div class="fx-flash" id="flash"></div>
+
+<div class="hud-fade t"></div><div class="hud-fade b"></div>
+<div class="hud">
+  <i class="hc tl"></i><i class="hc tr"></i><i class="hc bl"></i><i class="hc br"></i>
+  <div class="bar top">
+    <div class="bar__l"><a class="logo" href="#top" aria-label="В начало">zav<i>1</i>skq</a><span class="opt"><span class="dot"></span>online</span></div>
+    <span class="sec-name opt" id="secName">ГЛАВНАЯ</span>
+    <div class="bar__r">
+      <div class="pal" id="pal" role="group" aria-label="Цветовая гамма">
+        <button type="button" data-t="neon" title="Неон" aria-label="Палитра: неон" style="--c1:#ff2bd6;--c2:#00e5ff"></button>
+        <button type="button" data-t="yellow" title="Жёлтый" aria-label="Палитра: жёлтый" style="--c1:#fcee0a;--c2:#00f0ff"></button>
+        <button type="button" data-t="red" title="Красный код" aria-label="Палитра: красный код" style="--c1:#ff2244;--c2:#e9eef5"></button>
+        <button type="button" data-t="acid" title="Кислота" aria-label="Палитра: кислота" style="--c1:#c8ff3d;--c2:#9b6bff"></button>
+      </div>
+      <button class="snd" id="snd" type="button" aria-pressed="false"><i><span></span><span></span><span></span></i><span>Звук</span></button>
+      <span class="opt" id="clock">00:00:00</span>
+    </div>
+  </div>
+  <div class="bar bot"><span class="opt">X:<b id="cx">0000</b> Y:<b id="cy">0000</b></span><span class="opt">Частиц: <b id="pc">0000</b></span><span>Scroll <b id="sp">000</b>%</span></div>
+</div>
+
+<nav class="side" id="side" aria-label="Разделы"></nav>
+<div class="kana" aria-hidden="true">サイト・アプリ・デザイン</div>
+<div class="cur" id="cur" aria-hidden="true"><span class="h"></span><span class="v"></span><span class="ring"></span><span class="lbl" id="lbl"></span></div>
+<div class="boot" id="boot" aria-hidden="true"><pre id="log"></pre><div class="boot__bar"><i id="bar"></i></div><small>Клик — пропустить</small></div>
+
+<main id="top">
+  <!-- ========== ПЕРВЫЙ ЭКРАН ========== -->
+  <section class="step hero" data-word="ZAV1SKQ" data-y=".28" data-name="Главная">
+    <div>
+      <p class="tag">// Nikita Zavarzin <b>·</b> веб-разработчик</p>
+      <h1 aria-label="Сайты и Telegram Mini Apps"><span class="gt" data-text="Сайты и Telegram">Сайты и Telegram</span><span class="gt p" data-text="Mini Apps">Mini Apps</span></h1>
+    </div>
+    <div class="hero__right">
+      <p class="lead" id="lead">Делаю сайты, Telegram Mini Apps и ботов под ключ: структура, дизайн, код, сервер и запуск — всё в одних руках.</p>
+      <div class="actions">
+        <a class="btn btn--p" href="https://t.me/zav1skq" target="_blank" rel="noopener" data-label="CONNECT"><span>Написать</span><b>@zav1skq</b></a>
+        <a class="btn" href="#skills" data-label="SCROLL">Что я умею ↓</a>
+      </div>
+    </div>
+    <p class="hint"><span class="mouse">▲ Курсор расталкивает частицы · клик — взрыв · листай — они соберутся в новое слово</span><span class="touch">▲ Проведи пальцем по частицам · тапни по пустому месту · листай дальше</span></p>
+    <div class="floor" aria-hidden="true"><i></i></div>
+  </section>
+
+  <div class="hz-wrap" aria-hidden="true"><div class="hazard"><div class="hazard__track" id="haz"></div></div></div>
+
+  <!-- ========== ПРОЕКТЫ ========== -->
+  <section class="step proj" id="p1" data-word="АГАВА" data-y=".2" data-name="Project_01">
+    <article class="panel"><div class="panel__in">
+      <header class="panel__head"><span>Project_01 // Web</span><b>● Online</b></header>
+      <div class="panel__body">
+        <a class="shot" href="https://agavatour.ru" target="_blank" rel="noopener" data-label="OPEN" aria-label="Открыть сайт АГАВА тур"><img src="img/agava-desktop.jpg" width="1440" height="706" alt="Главная страница сайта АГАВА тур"><i class="laser"></i><span class="zoom">↗ открыть сайт</span></a>
+        <div class="info">
+          <p class="k">// 01 · сайт турагентства</p>
+          <h3 data-scramble>АГАВА тур</h3>
+          <p class="desc">Сайт туристического агентства: горящие и автобусные туры, детские лагеря и связь с менеджером в один клик. На телефоне — удобная нижняя панель. Плюс новогодняя тема для сайта и аватарки для Telegram-групп.</p>
+          <dl class="spec">
+            <div><dt>РОЛЬ</dt><dd>дизайн · вёрстка · бэкенд</dd></div>
+            <div><dt>СТЕК</dt><dd>HTML · CSS · JS · PHP</dd></div>
+            <div><dt>СЕЗОН</dt><dd>новогодняя тема + аватарки</dd></div>
+            <div><dt>АДРЕС</dt><dd>agavatour.ru</dd></div>
+          </dl>
+          <a class="btn" href="https://agavatour.ru" target="_blank" rel="noopener" data-label="OPEN">Открыть сайт ↗</a>
+        </div>
+      </div>
+      <div class="thumbs" data-set="agava">
+        <span class="thumbs__k">// экраны · нажмите, чтобы увеличить</span>
+        <button type="button" data-src="img/agava-desktop.jpg" data-cap="Главная на компьютере" data-label="ZOOM" aria-label="Главная на компьютере"><img src="img/agava-desktop.jpg" alt="" loading="lazy"></button>
+        <button class="ph" type="button" data-src="img/agava-phone.jpg" data-cap="Сайт на телефоне" data-label="ZOOM" aria-label="Сайт на телефоне"><img src="img/agava-phone.jpg" alt="" loading="lazy"></button>
+        <button type="button" data-src="img/agava-ny-desktop.jpg" data-cap="Новогодняя тема на компьютере" data-label="ZOOM" aria-label="Новогодняя тема на компьютере"><img src="img/agava-ny-desktop.jpg" alt="" loading="lazy"></button>
+        <button class="ph" type="button" data-src="img/agava-ny-phone.jpg" data-cap="Новогодняя тема на телефоне" data-label="ZOOM" aria-label="Новогодняя тема на телефоне"><img src="img/agava-ny-phone.jpg" alt="" loading="lazy"></button>
+        <button type="button" data-src="img/agava-ny-avatars.jpg" data-cap="Новогодние аватарки для Telegram" data-label="ZOOM" aria-label="Новогодние аватарки для Telegram"><img src="img/agava-ny-avatars.jpg" alt="" loading="lazy"></button>
+      </div>
+    </div></article>
+  </section>
+
+  <section class="step proj" id="p2" data-word="MINI APP" data-y=".2" data-name="Project_02">
+    <article class="panel"><div class="panel__in">
+      <header class="panel__head"><span>Project_02 // Telegram</span><b>● Online</b></header>
+      <div class="panel__body">
+        <a class="shot shot--phones" href="mini-app.html" data-demo="MINI APP" data-mobile="projects/fitness/index.html" data-label="OPEN" aria-label="Открыть демо мини-приложения">
+          <img src="img/fitness-home.jpg" width="600" height="1298" alt="Главный экран мини-приложения"><img src="img/fitness-schedule.jpg" width="600" height="1298" alt="Расписание"><img src="img/fitness-booking.jpg" width="600" height="1298" alt="Запись на занятие"><i class="laser"></i><span class="zoom">▶ открыть демо</span>
+        </a>
+        <div class="info">
+          <p class="k">// 02 · telegram mini app</p>
+          <h3 data-scramble>Фитнес-клуб</h3>
+          <p class="desc">Приложение прямо внутри Telegram: клиент открывает бота, смотрит расписание и записывается на тренировку в пару касаний. Лист ожидания, тренеры, цены и абонементы — без установки приложений.</p>
+          <dl class="spec">
+            <div><dt>РОЛЬ</dt><dd>дизайн · разработка</dd></div>
+            <div><dt>СТЕК</dt><dd>JS · Telegram Mini Apps SDK</dd></div>
+            <div><dt>ДАННЫЕ</dt><dd>38 занятий · 13 направлений · 12 тренеров</dd></div>
+          </dl>
+          <a class="btn" href="mini-app.html" data-demo="MINI APP" data-mobile="projects/fitness/index.html" data-label="OPEN">Открыть демо →</a>
+        </div>
+      </div>
+      <div class="thumbs" data-set="fitness">
+        <span class="thumbs__k">// экраны · нажмите, чтобы увеличить</span>
+        <button class="ph" type="button" data-src="img/fitness-home.jpg" data-cap="Главный экран" data-label="ZOOM" aria-label="Главный экран"><img src="img/fitness-home.jpg" alt="" loading="lazy"></button>
+        <button class="ph" type="button" data-src="img/fitness-schedule.jpg" data-cap="Расписание на неделю" data-label="ZOOM" aria-label="Расписание на неделю"><img src="img/fitness-schedule.jpg" alt="" loading="lazy"></button>
+        <button class="ph" type="button" data-src="img/fitness-booking.jpg" data-cap="Запись на занятие" data-label="ZOOM" aria-label="Запись на занятие"><img src="img/fitness-booking.jpg" alt="" loading="lazy"></button>
+        <button class="ph" type="button" data-src="img/fitness-trainers.jpg" data-cap="Тренеры" data-label="ZOOM" aria-label="Тренеры"><img src="img/fitness-trainers.jpg" alt="" loading="lazy"></button>
+        <button class="ph" type="button" data-src="img/fitness-prices.jpg" data-cap="Цены и абонементы" data-label="ZOOM" aria-label="Цены и абонементы"><img src="img/fitness-prices.jpg" alt="" loading="lazy"></button>
+      </div>
+    </div></article>
+  </section>
+
+  <section class="step proj" id="p3" data-word="ДЕМИУРГ" data-y=".2" data-name="Project_03">
+    <article class="panel"><div class="panel__in">
+      <header class="panel__head"><span>Project_03 // WebGL</span><b>● Online</b></header>
+      <div class="panel__body">
+        <a class="shot" href="projects/demiurg/index.html" data-demo="ДЕМИУРГ" data-label="OPEN" aria-label="Открыть демо Демиурга"><img src="img/demiurg-workshop.jpg" width="1440" height="900" alt="Мастерская миров на сайте Демиург"><i class="laser"></i><span class="zoom">▶ открыть демо</span></a>
+        <div class="info">
+          <p class="k">// 03 · 3d в браузере</p>
+          <h3 data-scramble>Демиург</h3>
+          <p class="desc">Промо-сайт «ателье миров»: планеты, звёзды и туманности рендерятся в реальном времени на шейдерах — на сайте нет ни одной картинки. В мастерской можно собрать свой мир и получить его паспорт.</p>
+          <dl class="spec">
+            <div><dt>РОЛЬ</dt><dd>идея · дизайн · код</dd></div>
+            <div><dt>СТЕК</dt><dd>WebGL 2 · GLSL · Web Audio</dd></div>
+            <div><dt>КАРТИНОК</dt><dd>0</dd></div>
+          </dl>
+          <a class="btn" href="projects/demiurg/index.html" data-demo="ДЕМИУРГ" data-label="OPEN">Открыть демо →</a>
+        </div>
+      </div>
+      <div class="thumbs" data-set="demiurg">
+        <span class="thumbs__k">// экраны · нажмите, чтобы увеличить</span>
+        <button type="button" data-src="img/demiurg-hero.jpg" data-cap="Первый экран" data-label="ZOOM" aria-label="Первый экран"><img src="img/demiurg-hero.jpg" alt="" loading="lazy"></button>
+        <button type="button" data-src="img/demiurg-workshop.jpg" data-cap="Мастерская: настройка планеты" data-label="ZOOM" aria-label="Мастерская"><img src="img/demiurg-workshop.jpg" alt="" loading="lazy"></button>
+        <button type="button" data-src="img/demiurg-worlds.jpg" data-cap="Каталог миров" data-label="ZOOM" aria-label="Каталог миров"><img src="img/demiurg-worlds.jpg" alt="" loading="lazy"></button>
+        <button class="ph" type="button" data-src="img/demiurg-phone.jpg" data-cap="На телефоне" data-label="ZOOM" aria-label="На телефоне"><img src="img/demiurg-phone.jpg" alt="" loading="lazy"></button>
+      </div>
+    </div></article>
+  </section>
+
+  <!-- ========== НАВЫКИ ========== -->
+  <section class="step skills" id="skills" data-word="НАВЫКИ" data-y=".2" data-name="Навыки">
+    <div class="sh">
+      <p class="tag">// sys.modules <b>·</b> что я умею</p>
+      <h2 class="h2"><span class="gt" data-text="Что я">Что я</span><span class="gt p" data-text="умею">умею</span></h2>
+      <p class="txt">Веду проект целиком: от первой идеи и структуры до дизайна, кода, сервера и запуска. Не нужно собирать команду из дизайнера, верстальщика и программиста — всё в одних руках, а все вопросы решаются в одном чате.</p>
+    </div>
+
+    <div class="mods__grid">
+      <article class="mod frame rv"><div class="frame__in">
+        <div class="mod__top"><span>MOD_01</span><b>● ACTIVE</b></div>
+        <div class="mod__title"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01M7 13h6M7 16h4"/></svg><h3 data-scramble>Сайты и лендинги</h3></div>
+        <p class="mod__lead">Лендинг под рекламу, сайт-визитка, многостраничный сайт компании или каталог услуг. Делаю так, чтобы посетитель сразу понял, что вы предлагаете, и легко оставил заявку.</p>
+        <ul>
+          <li>Структура и смысловые блоки под вашу аудиторию</li>
+          <li>Адаптив: телефон, планшет, компьютер</li>
+          <li>Формы заявок с отправкой в Telegram или на почту</li>
+          <li>Базовое SEO: мета-теги, карта сайта, превью ссылки</li>
+          <li>Быстрая загрузка: сжатые картинки и ленивая подгрузка</li>
+        </ul>
+        <div class="mod__tags"><span>HTML</span><span>CSS</span><span>JS</span><span>PHP</span></div>
+      </div></article>
+
+      <article class="mod frame rv" style="--d:.08s"><div class="frame__in">
+        <div class="mod__top"><span>MOD_02</span><b>● ACTIVE</b></div>
+        <div class="mod__title"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2"/><path d="M10.5 18.5h3M9 7h6M9 10h4"/></svg><h3 data-scramble>Telegram Mini Apps</h3></div>
+        <p class="mod__lead">Полноценное приложение внутри Telegram: клиент открывает бота и сразу записывается, выбирает товар или заходит в личный кабинет. Ничего не нужно скачивать и регистрироваться.</p>
+        <ul>
+          <li>Вход через аккаунт Telegram — без паролей</li>
+          <li>Расписание, онлайн-запись и лист ожидания</li>
+          <li>Каталог, корзина и оформление заказа</li>
+          <li>Уведомления и напоминания от бота</li>
+          <li>Дизайн под ваш бренд и тему Telegram</li>
+        </ul>
+        <div class="mod__tags"><span>Mini Apps SDK</span><span>JS</span><span>Bot API</span></div>
+      </div></article>
+
+      <article class="mod frame rv" style="--d:.16s"><div class="frame__in">
+        <div class="mod__top"><span>MOD_03</span><b>● ACTIVE</b></div>
+        <div class="mod__title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg><h3 data-scramble>Telegram-боты</h3></div>
+        <p class="mod__lead">Боты, которые работают за менеджера: принимают заявки, отвечают на частые вопросы и присылают уведомления. И открывают ваше мини-приложение одной кнопкой.</p>
+        <ul>
+          <li>Меню и кнопки вместо длинной переписки</li>
+          <li>Приём заявок и пересылка менеджеру</li>
+          <li>Ответы на частые вопросы</li>
+          <li>Рассылки по подписчикам</li>
+          <li>Связка с сайтом и Mini App</li>
+        </ul>
+        <div class="mod__tags"><span>Bot API</span><span>Webhooks</span></div>
+      </div></article>
+
+      <article class="mod frame rv"><div class="frame__in">
+        <div class="mod__top"><span>MOD_04</span><b>● ACTIVE</b></div>
+        <div class="mod__title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7 3 12l5 5M16 7l5 5-5 5M13.5 5l-3 14"/></svg><h3 data-scramble>Бэкенд и интеграции</h3></div>
+        <p class="mod__lead">Серверная часть, без которой сайт — просто картинка: обработка заявок, хранение данных и связь с сервисами, которыми вы уже пользуетесь.</p>
+        <ul>
+          <li>Обработка форм и заявок на сервере</li>
+          <li>Хранение данных: заявки, записи, каталог</li>
+          <li>Интеграции по API: CRM, Google-таблицы, учётные системы</li>
+          <li>Уведомления о новых заявках в Telegram</li>
+          <li>Хостинг, домен и SSL-сертификат</li>
+        </ul>
+        <div class="mod__tags"><span>PHP</span><span>API</span><span>JSON</span></div>
+      </div></article>
+
+      <article class="mod frame rv" style="--d:.08s"><div class="frame__in">
+        <div class="mod__top"><span>MOD_05</span><b>● ACTIVE</b></div>
+        <div class="mod__title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"/></svg><h3 data-scramble>Дизайн интерфейсов</h3></div>
+        <p class="mod__lead">Рисую интерфейс под ваш бренд, а не по шаблону. Сначала показываю главные экраны, вместе дорабатываем — и только потом код.</p>
+        <ul>
+          <li>Дизайн экранов для телефона и компьютера</li>
+          <li>Ваши цвета, шрифты и характер бренда</li>
+          <li>Сезонные темы: новогодняя, праздничная, под акцию</li>
+          <li>Аватарки, обложки и графика для соцсетей</li>
+          <li>Понятная навигация и крупные кнопки на телефоне</li>
+        </ul>
+        <div class="mod__tags"><span>UI</span><span>UX</span><span>Брендинг</span></div>
+      </div></article>
+
+      <article class="mod frame rv" style="--d:.16s"><div class="frame__in">
+        <div class="mod__top"><span>MOD_06</span><b>● ACTIVE</b></div>
+        <div class="mod__title"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 8.5 5v10L12 22l-8.5-5V7L12 2Z"/><path d="m3.5 7 8.5 5 8.5-5M12 12v10"/></svg><h3 data-scramble>Анимации, 3D и WebGL</h3></div>
+        <p class="mod__lead">Эффекты, после которых сайт запоминают: анимации при прокрутке, частицы, шейдеры и 3D-сцены прямо в браузере — как на этом сайте и в «Демиурге».</p>
+        <ul>
+          <li>Анимации появления и переходы между экранами</li>
+          <li>Интерактив: реакция на мышь и касания</li>
+          <li>3D и шейдеры на WebGL — без тяжёлых картинок</li>
+          <li>Звуки интерфейса через Web Audio</li>
+          <li>Оптимизация, чтобы не тормозило на телефоне</li>
+        </ul>
+        <div class="mod__tags"><span>Canvas</span><span>WebGL 2</span><span>GLSL</span><span>Web Audio</span></div>
+      </div></article>
+    </div>
+  </section>
+
+  <!-- ========== СТЕК ========== -->
+  <section class="step stack" id="stack" data-word="СТЕК" data-y=".2" data-name="Стек">
+    <div class="sh">
+      <p class="tag">// sys.stack <b>·</b> технологии</p>
+      <h2 class="h2"><span class="gt" data-text="Чистый код">Чистый код</span><span class="gt p" data-text="без шаблонов">без шаблонов</span></h2>
+      <p class="txt">Пишу проекты руками, без тяжёлых конструкторов. Поэтому сайт быстро открывается, его легко дорабатывать, и вы не привязаны к платной платформе.</p>
+    </div>
+    <div class="stack__grid">
+      <div class="frame rv"><div class="frame__in">
+        <div class="frame__head">sys.diagnostics --stack<span>■ ■ ■</span></div>
+        <div class="diag">
+          <div class="diag__row" style="--i:0"><p class="diag__k">FRONTEND<small>что видит клиент</small></p><div class="chips"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Адаптивная вёрстка</span><span>CSS-анимации</span></div></div>
+          <div class="diag__row" style="--i:1"><p class="diag__k">GRAPHICS<small>эффекты и 3D</small></p><div class="chips"><span>Canvas 2D</span><span>WebGL 2</span><span>GLSL-шейдеры</span><span>SVG</span><span>Web Audio</span></div></div>
+          <div class="diag__row" style="--i:2"><p class="diag__k">TELEGRAM<small>приложения и боты</small></p><div class="chips"><span>Mini Apps SDK</span><span>Bot API</span><span>Вход через Telegram</span><span>Уведомления</span></div></div>
+          <div class="diag__row" style="--i:3"><p class="diag__k">BACKEND<small>сервер и данные</small></p><div class="chips"><span>PHP</span><span>REST API</span><span>JSON</span><span>Формы и заявки</span></div></div>
+          <div class="diag__row" style="--i:4"><p class="diag__k">DEPLOY<small>запуск</small></p><div class="chips"><span>Хостинг</span><span>Домены</span><span>SSL</span><span>Перенос сайтов</span></div></div>
+        </div>
+      </div></div>
+      <div class="frame rv" style="--d:.12s"><div class="frame__in">
+        <div class="frame__head">в каждом проекте<span>■ ■ ■</span></div>
+        <ul class="checks">
+          <li style="--i:0"><b>[OK]</b>Адаптив под телефоны, планшеты и компьютеры</li>
+          <li style="--i:1"><b>[OK]</b>Быстрая загрузка и лёгкий код</li>
+          <li style="--i:2"><b>[OK]</b>Базовое SEO и красивое превью ссылки</li>
+          <li style="--i:3"><b>[OK]</b>Проверка в разных браузерах и на телефонах</li>
+          <li style="--i:4"><b>[OK]</b>Помощь с хостингом и доменом</li>
+          <li style="--i:5"><b>[OK]</b>Исходники и доступы остаются у вас</li>
+          <li style="--i:6"><b>[OK]</b>Правки и поддержка после запуска</li>
+        </ul>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ========== ПРОЦЕСС ========== -->
+  <section class="step proc" id="process" data-word="ПРОЦЕСС" data-y=".2" data-name="Процесс">
+    <div class="sh">
+      <p class="tag">// sys.protocol <b>·</b> как работаю</p>
+      <h2 class="h2"><span class="gt" data-text="От идеи">От идеи</span><span class="gt p" data-text="до запуска">до запуска</span></h2>
+      <p class="txt">Понятные этапы без сюрпризов: на каждом шаге вы видите результат и можете внести правки.</p>
+    </div>
+    <ol class="flow" id="flow">
+      <li style="--i:0"><span class="n">01</span><h3>Бриф</h3><p>Пишете в Telegram, что нужно. Уточняю задачу, аудиторию, сроки и бюджет, предлагаю решение.</p><p class="out">→ план и смета</p></li>
+      <li style="--i:1"><span class="n">02</span><h3>Структура</h3><p>Продумываю, из каких экранов и блоков состоит проект и что должен сделать посетитель.</p><p class="out">→ карта экранов</p></li>
+      <li style="--i:2"><span class="n">03</span><h3>Дизайн</h3><p>Показываю главные экраны в вашем стиле и дорабатываю, пока результат не понравится.</p><p class="out">→ готовые макеты</p></li>
+      <li style="--i:3"><span class="n">04</span><h3>Разработка</h3><p>Верстаю, пишу логику, подключаю сервисы. Проверяю на телефонах и компьютерах.</p><p class="out">→ рабочая версия</p></li>
+      <li style="--i:4"><span class="n">05</span><h3>Запуск</h3><p>Выкладываю на хостинг, подключаю домен или бота. Остаюсь на связи для правок.</p><p class="out">→ проект в сети</p></li>
+    </ol>
+  </section>
+
+  <!-- ========== СВЯЗЬ ========== -->
+  <section class="step contact" id="contact" data-word="СВЯЗЬ" data-y=".2" data-name="Связь">
+    <div>
+      <p class="tag">// канал открыт</p>
+      <h2 class="h2"><span class="gt" data-text="Установить">Установить</span><span class="gt p" data-text="соединение">соединение</span></h2>
+      <p class="txt">Расскажите в двух словах, что нужно сделать, — отвечу и предложу решение. Или поиграйте с терминалом.</p>
+      <a class="btn btn--p btn--xl" href="https://t.me/zav1skq" target="_blank" rel="noopener" data-label="CONNECT"><span>&gt;</span><b>@zav1skq</b></a>
+    </div>
+    <div class="term frame"><div class="frame__in">
+      <div class="frame__head">zav1skq@portfolio:~$<span>■ ■ ■</span></div>
+      <div class="term__out" id="tout" aria-live="polite"></div>
+      <form class="term__form" id="tform" autocomplete="off"><span>&gt;</span><input id="tin" spellcheck="false" autocapitalize="off" aria-label="Команда терминала" placeholder="help"></form>
+      <div class="qc" id="qc"><button type="button" data-cmd="help">help</button><button type="button" data-cmd="projects">projects</button><button type="button" data-cmd="skills">skills</button><button type="button" data-cmd="about">about</button><button type="button" data-cmd="theme">theme</button><button type="button" data-cmd="contact">contact</button></div>
+    </div></div>
+    <p class="foot"><span>© <span id="year">2026</span> Nikita Zavarzin</span><span>Сайты · Telegram Mini Apps · боты</span></p>
+  </section>
+</main>
+
+<div class="warp" id="warp" hidden aria-hidden="true">
+  <div class="warp__in">
+    <p class="tag" id="warpTag">// переход</p>
+    <p class="warp__t"><span id="warpVerb">подключение к</span> <b id="warpName">демо</b><i>_</i></p>
+    <div class="warp__bar"><i></i></div>
+  </div>
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр скриншота" hidden>
+  <div class="lb__frame" id="lbFrame"><div class="lb__in">
+    <div class="lb__head"><span id="lbCap"></span><b id="lbNum">01/01</b></div>
+    <img id="lbImg" alt="">
+  </div></div>
+  <button class="lb__nav prev" type="button" data-label="PREV" aria-label="Предыдущий скриншот">‹</button>
+  <button class="lb__nav next" type="button" data-label="NEXT" aria-label="Следующий скриншот">›</button>
+  <button class="lb__close" type="button" data-label="EXIT" aria-label="Закрыть">✕ Esc</button>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

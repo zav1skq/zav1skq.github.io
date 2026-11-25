@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ДЕМИУРГ — ателье миров. Планеты ручной работы</title>
+<meta name="description" content="Проектируем, собираем и выводим на орбиту планеты под ключ. Каталог миров, мастерская и рассвет с орбиты — всё считается в реальном времени, без единой картинки.">
+<meta name="theme-color" content="#04050a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2304050a'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%237cc4ff'/%3E%3Cellipse cx='16' cy='16' rx='13.5' ry='4.6' fill='none' stroke='%23f4f0e8' stroke-width='1.6' transform='rotate(-24 16 16)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300..800&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<canvas id="cosmos" aria-hidden="true"></canvas>
+
+<!-- ============ ПРЕЛОАДЕР ============ -->
+<div class="loader" id="loader" role="status" aria-live="polite">
+  <div class="loader__row mono"><span>Демиург</span><span>Ателье миров</span></div>
+  <div class="loader__core">
+    <div class="loader__num"><span id="loaderNum">0</span><i>%</i></div>
+    <div class="loader__status mono" id="loaderStatus">Сжимаем газопылевое облако</div>
+  </div>
+  <div class="loader__bar"><i id="loaderBar"></i></div>
+  <div class="loader__row mono"><span>Сборка вселенной</span><span>WebGL 2 · 0 картинок</span></div>
+  <div class="loader__flash" aria-hidden="true"></div>
+</div>
+
+<!-- ============ НАВИГАЦИЯ ============ -->
+<header class="nav" id="nav">
+  <a class="logo" href="#top" aria-label="Демиург — в начало">
+    <svg class="logo__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <circle cx="16" cy="16" r="7" fill="currentColor"/>
+      <ellipse cx="16" cy="16" rx="14.2" ry="5" stroke="currentColor" stroke-width="1.4" transform="rotate(-24 16 16)"/>
+    </svg>
+    <span class="logo__word">ДЕМИУРГ</span>
+  </a>
+  <nav class="nav__links" aria-label="Разделы">
+    <a href="#worlds" data-nav="worlds">Миры</a>
+    <a href="#workshop" data-nav="workshop">Мастерская</a>
+    <a href="#process" data-nav="process">Процесс</a>
+    <a href="#pricing" data-nav="pricing">Тарифы</a>
+  </nav>
+  <div class="nav__right">
+    <button class="sound" id="soundBtn" type="button" aria-pressed="false" aria-label="Звук">
+      <span class="sound__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="sound__label mono">Звук</span>
+    </button>
+    <a class="btn btn--sm" href="#order" data-magnetic><span>Заказать мир</span></a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ 00 · ОРБИТА ============ -->
+  <section class="hero" id="top" data-sec="hero" data-title="Орбита">
+    <p class="hero__eyebrow mono"><span>Ателье миров</span><span>на рынке 13,8 млрд лет</span></p>
+    <h1 class="hero__title" aria-label="Планеты ручной работы">
+      <span class="hero__l1 behind" data-feather="0.034" data-split aria-hidden="true">ПЛАНЕТЫ</span>
+      <span class="hero__l2" data-split aria-hidden="true"><em>ручной</em> работы</span>
+    </h1>
+    <div class="hero__foot">
+      <p class="hero__lead">Проектируем, собираем и выводим на орбиту миры под ключ — с океанами, атмосферой и видом на рассвет. Вам остаётся придумать название.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#workshop" data-magnetic><span>Собрать свой мир</span><i class="btn__arrow" aria-hidden="true">↗</i></a>
+        <a class="btn" href="#worlds" data-magnetic><span>Каталог миров</span></a>
+      </div>
+    </div>
+    <div class="hero__meta mono">
+      <span>№ 000 000 001 · Терра</span>
+      <span>Миров на орбите: <b id="worldCount">200 000 000 412</b></span>
+      <span class="hero__scroll"><i aria-hidden="true"></i>Листайте</span>
+    </div>
+  </section>
+
+  <!-- ============ 01 · МАНИФЕСТ ============ -->
+  <section class="manifesto" id="manifesto" data-sec="manifesto" data-title="Манифест">
+    <div class="manifesto__pin">
+      <div class="sec-label mono"><span>01</span><span>Манифест</span></div>
+      <p class="manifesto__text" id="manifestoText">Любая планета начинается с пылинки. Дальше — дело техники: немного <em>гравитации,</em> щепотка воды и правильная звезда. Мы занимаемся этим дольше, чем существует <em>время.</em></p>
+      <ul class="manifesto__facts">
+        <li><b class="mono">01</b><span>Гравитация</span><p>Держит всё вместе. В прямом смысле.</p></li>
+        <li><b class="mono">02</b><span>Вода</span><p>Привозим кометами. Солим по вкусу.</p></li>
+        <li><b class="mono">03</b><span>Свет</span><p>Подбираем звезду под цвет ваших закатов.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 02 · КАТАЛОГ ============ -->
+  <section class="worlds" id="worlds" data-sec="worlds" data-title="Каталог">
+    <div class="worlds__pin">
+      <div class="worlds__head">
+        <div class="sec-label mono"><span>02</span><span>Каталог миров</span></div>
+        <div class="worlds__count mono"><b id="wIdx">01</b><i>/</i><span>06</span></div>
+      </div>
+      <div class="worlds__space" aria-hidden="true"></div>
+      <div class="worlds__info" id="wInfo">
+        <span class="chip mono" id="wTag">Бестселлер</span>
+        <p class="worlds__desc" id="wDesc"></p>
+        <dl class="worlds__specs" id="wSpecs"></dl>
+        <div class="worlds__buy">
+          <div class="worlds__price"><span class="mono">Стоимость</span><b id="wPrice"></b></div>
+          <button class="btn" id="wTake" type="button" data-magnetic><span>Взять за основу</span><i class="btn__arrow" aria-hidden="true">→</i></button>
+        </div>
+      </div>
+      <h2 class="worlds__giant behind" data-feather="0.004" id="wGiant" aria-live="polite"></h2>
+      <div class="worlds__nav" id="wNav" role="tablist" aria-label="Миры каталога"></div>
+    </div>
+  </section>
+
+  <!-- ============ 03 · МАСТЕРСКАЯ ============ -->
+  <section class="workshop" id="workshop" data-sec="workshop" data-title="Мастерская">
+    <div class="workshop__stage" id="wsStage" data-stage>
+      <div class="sec-label mono"><span>03</span><span>Мастерская</span></div>
+      <h2 class="h2" data-reveal>Соберите <em>свой</em> мир</h2>
+      <p class="workshop__hint mono" data-reveal><i aria-hidden="true">↻</i>Потяните планету — она крутится</p>
+
+      <article class="passport" id="passport" data-tilt aria-label="Паспорт мира">
+        <header><span class="mono">Паспорт мира</span><span class="mono" id="ppNo">№ 000 000 002</span></header>
+        <h3 id="ppName">Терра Нова</h3>
+        <p class="passport__class mono" id="ppClass">Землеподобная · класс M</p>
+        <dl>
+          <div><dt>Гравитация</dt><dd id="ppG">1,00 g</dd></div>
+          <div><dt>Сутки</dt><dd id="ppDay">24 ч</dd></div>
+          <div><dt>Средняя t°</dt><dd id="ppT">+15 °C</dd></div>
+          <div><dt>Поверхность</dt><dd id="ppSea">вода 71 %</dd></div>
+          <div><dt>Обитаемость</dt><dd id="ppHab">98 %</dd></div>
+          <div><dt>Срок сборки</dt><dd id="ppEta">4,5 млрд лет</dd></div>
+        </dl>
+        <footer><i class="passport__bar" id="ppBar" aria-hidden="true"></i><span class="mono" id="ppVerdict">Рекомендуем к заселению</span></footer>
+      </article>
+    </div>
+
+    <aside class="panel" id="panel" data-native-scroll aria-label="Параметры мира">
+      <label class="field">
+        <span class="field__label mono">Имя мира</span>
+        <input class="field__input" id="wsName" type="text" maxlength="16" value="Терра Нова" spellcheck="false" autocomplete="off">
+      </label>
+      <div class="panel__group">
+        <span class="field__label mono">Основа</span>
+        <div class="chips" id="wsBases"></div>
+      </div>
+      <div class="sliders" id="wsSliders"></div>
+      <div class="panel__actions">
+        <button class="btn btn--primary" id="wsRandom" type="button"><span>Случайный мир</span><i class="btn__arrow" aria-hidden="true">⚄</i></button>
+        <button class="btn" id="wsShot" type="button"><span>Открытка</span></button>
+        <button class="btn btn--icon" id="wsReset" type="button" aria-label="Сбросить">↺</button>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ============ 04 · ПРОЦЕСС ============ -->
+  <section class="process" id="process" data-sec="process" data-title="Процесс">
+    <header class="sec-head">
+      <div class="sec-label mono"><span>04</span><span>Процесс</span></div>
+      <h2 class="h2" data-reveal>Как рождается <em>мир</em></h2>
+      <p class="sec-lead" data-reveal>Четыре этапа, каждый — на пару сотен миллионов лет. Торопиться некуда: за нами вечность.</p>
+    </header>
+    <ol class="steps">
+      <li class="step" data-reveal>
+        <span class="step__n">01</span>
+        <canvas class="step__viz" data-viz="accretion" aria-hidden="true"></canvas>
+        <div class="step__body">
+          <h3>Аккреция</h3>
+          <p>Собираем пыль и лёд вокруг молодой звезды. Сначала слипаются крупинки, потом — планетезимали. Через сто миллионов лет у вас уже шар.</p>
+        </div>
+        <span class="step__time mono">0 — 100 млн лет</span>
+      </li>
+      <li class="step" data-reveal>
+        <span class="step__n">02</span>
+        <canvas class="step__viz" data-viz="core" aria-hidden="true"></canvas>
+        <div class="step__body">
+          <h3>Ядро</h3>
+          <p>Тяжёлое тонет, лёгкое всплывает. Железо уходит в центр и запускает магнитное поле — ваш щит от звёздного ветра.</p>
+        </div>
+        <span class="step__time mono">100 — 500 млн лет</span>
+      </li>
+      <li class="step" data-reveal>
+        <span class="step__n">03</span>
+        <canvas class="step__viz" data-viz="water" aria-hidden="true"></canvas>
+        <div class="step__body">
+          <h3>Вода и воздух</h3>
+          <p>Кометы привозят океаны, вулканы надувают атмосферу. На этом этапе планета впервые видит дождь. Он идёт несколько тысяч лет.</p>
+        </div>
+        <span class="step__time mono">0,5 — 1 млрд лет</span>
+      </li>
+      <li class="step" data-reveal>
+        <span class="step__n">04</span>
+        <canvas class="step__viz" data-viz="life" aria-hidden="true"></canvas>
+        <div class="step__body">
+          <h3>Жизнь</h3>
+          <p>Опция. Мы создаём условия и отходим в сторону: дальше работают химия, время и немного удачи.</p>
+        </div>
+        <span class="step__time mono">1 — 4,5 млрд лет</span>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============ 05 · ОТЗЫВЫ ============ -->
+  <section class="proof" id="proof" data-sec="proof" data-title="Отзывы">
+    <div class="marquee" id="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Миры на заказ</span><i>✦</i><span><em>океаны</em> в подарок</span><i>✦</i><span>Гарантия 10 млрд лет</span><i>✦</i><span><em>рассветы</em> ручной настройки</span><i>✦</i>
+      </div>
+    </div>
+
+    <ul class="stats" data-stagger>
+      <li data-reveal><b><span data-count="13.8" data-dec="1">0</span></b><i class="mono">млрд лет</i><p>на рынке. Старше нас только водород.</p></li>
+      <li data-reveal><b><span data-count="200">0</span></b><i class="mono">млрд миров</i><p>в портфолио одной лишь этой галактики.</p></li>
+      <li data-reveal><b><span data-count="1">0</span></b><i class="mono">мир</i><p>с подтверждённой разумной жизнью. Пока.</p></li>
+      <li data-reveal><b><span data-count="0">0</span></b><i class="mono">жалоб</i><p>за всё время работы. Некому жаловаться.</p></li>
+    </ul>
+
+    <header class="sec-head sec-head--row">
+      <div>
+        <div class="sec-label mono"><span>05</span><span>Отзывы</span></div>
+        <h2 class="h2" data-reveal>Говорят <em>цивилизации</em></h2>
+      </div>
+      <p class="sec-lead mono" data-reveal>← потяните →</p>
+    </header>
+
+    <div class="reviews" id="reviews">
+      <div class="reviews__track" id="reviewsTrack">
+        <figure class="review" data-tilt>
+          <div class="review__stars" aria-label="4 из 5">★★★★<i>★</i></div>
+          <blockquote>Заказывали мир с двумя солнцами. Загар — отличный, календарь — кошмар.</blockquote>
+          <figcaption><b>Жители Кеплер-16 b</b><span class="mono">Двойная система</span></figcaption>
+        </figure>
+        <figure class="review" data-tilt>
+          <div class="review__stars" aria-label="5 из 5">★★★★★</div>
+          <blockquote>Попросили океан побольше. Сделали — суши нет вообще. Претензий не имеем, жабры отрастили.</blockquote>
+          <figcaption><b>Океаниды</b><span class="mono">GJ 1214 b</span></figcaption>
+        </figure>
+        <figure class="review" data-tilt>
+          <div class="review__stars" aria-label="5 из 5">★★★★★</div>
+          <blockquote>Кольца — восторг. Соседи завидуют уже четыре миллиарда лет.</blockquote>
+          <figcaption><b>Совет Шестого Спутника</b><span class="mono">Газовый гигант</span></figcaption>
+        </figure>
+        <figure class="review" data-tilt>
+          <div class="review__stars" aria-label="4 из 5">★★★★<i>★</i></div>
+          <blockquote>Луну привезли больше, чем в проекте. Зато приливы — огонь, сёрфим всей планетой.</blockquote>
+          <figcaption><b>Терра</b><span class="mono">Солнечная система</span></figcaption>
+        </figure>
+        <figure class="review" data-tilt>
+          <div class="review__stars" aria-label="5 из 5">★★★★★</div>
+          <blockquote>Заказали вечную зиму ради тишины. Тишина есть. Соседей нет. Идеально.</blockquote>
+          <figcaption><b>Отшельники Криоса</b><span class="mono">Ледяной мир</span></figcaption>
+        </figure>
+        <figure class="review" data-tilt>
+          <div class="review__stars" aria-label="5 из 5">★★★★★</div>
+          <blockquote>Гравитация держит. Атмосфера не протекает. Рекомендуем.</blockquote>
+          <figcaption><b>Анонимный разум</b><span class="mono">Туманность Киля</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 · ТАРИФЫ ============ -->
+  <section class="pricing" id="pricing" data-sec="pricing" data-title="Тарифы">
+    <header class="sec-head">
+      <div class="sec-label mono"><span>06</span><span>Тарифы</span></div>
+      <h2 class="h2" data-reveal>Выберите <em>масштаб</em></h2>
+    </header>
+    <div class="plans" data-stagger>
+      <article class="plan" data-reveal data-tilt>
+        <p class="plan__for mono">Чтобы попробовать</p>
+        <h3>Астероид</h3>
+        <div class="plan__price"><b>1</b><span>комета</span></div>
+        <ul>
+          <li>Диаметр до 900 км</li>
+          <li>Гравитация — символическая</li>
+          <li>Звёздное небо круглые сутки</li>
+          <li>Место для одной розы и маяка</li>
+        </ul>
+        <a class="btn" href="#order" data-plan="Астероид"><span>Выбрать</span></a>
+      </article>
+      <article class="plan plan--hot" data-reveal data-tilt>
+        <span class="plan__badge mono">Выбор цивилизаций</span>
+        <p class="plan__for mono">Для жизни</p>
+        <h3>Планета</h3>
+        <div class="plan__price"><b>5,97</b><span>× 10²⁴ кг</span></div>
+        <ul>
+          <li>Каменное ядро и магнитный щит</li>
+          <li>Океаны и атмосфера под ключ</li>
+          <li>Смена сезонов и рассветы</li>
+          <li>Один спутник в подарок</li>
+          <li>Гарантия 10 млрд лет</li>
+        </ul>
+        <a class="btn btn--primary" href="#order" data-plan="Планета"><span>Выбрать</span><i class="btn__arrow" aria-hidden="true">↗</i></a>
+      </article>
+      <article class="plan" data-reveal data-tilt>
+        <p class="plan__for mono">Для амбициозных</p>
+        <h3>Система</h3>
+        <div class="plan__price"><b>∞</b><span>по запросу</span></div>
+        <ul>
+          <li>До двенадцати планет на орбитах</li>
+          <li>Звезда на выбор: жёлтая, красная, двойная</li>
+          <li>Пояс астероидов и облако Оорта</li>
+          <li>Личный демиург на связи всегда</li>
+        </ul>
+        <a class="btn" href="#order" data-plan="Система"><span>Выбрать</span></a>
+      </article>
+    </div>
+    <p class="pricing__note mono">Цены указаны без учёта тёмной материи. Сборка — на месте, прямо на орбите.</p>
+  </section>
+
+  <!-- ============ 07 · ВОПРОСЫ ============ -->
+  <section class="faq" id="faq" data-sec="faq" data-title="Вопросы">
+    <header class="sec-head">
+      <div class="sec-label mono"><span>07</span><span>Вопросы</span></div>
+      <h2 class="h2" data-reveal>Спрашивают <em>часто</em></h2>
+    </header>
+    <div class="faq__list" id="faqList">
+      <div class="qa" data-reveal>
+        <button class="qa__q" type="button" aria-expanded="false"><span>Сколько длится сборка?</span><i aria-hidden="true"></i></button>
+        <div class="qa__a"><div><p>Стандартно — 4,5 млрд лет. Есть экспресс-тариф: шесть дней, на седьмой отдыхаем.</p></div></div>
+      </div>
+      <div class="qa" data-reveal>
+        <button class="qa__q" type="button" aria-expanded="false"><span>Можно ли вернуть планету?</span><i aria-hidden="true"></i></button>
+        <div class="qa__a"><div><p>Можно, если сохранён товарный вид и не завелась разумная жизнь. С жизнью — только обмен.</p></div></div>
+      </div>
+      <div class="qa" data-reveal>
+        <button class="qa__q" type="button" aria-expanded="false"><span>А если упадёт астероид?</span><i aria-hidden="true"></i></button>
+        <div class="qa__a"><div><p>Мелкие — не гарантийный случай, для них есть атмосфера. От крупных ставим на внешнюю орбиту газовый гигант: он работает как пылесос.</p></div></div>
+      </div>
+      <div class="qa" data-reveal>
+        <button class="qa__q" type="button" aria-expanded="false"><span>Жизнь входит в комплект?</span><i aria-hidden="true"></i></button>
+        <div class="qa__a"><div><p>Мы создаём условия. Дальше — химия, время и немного удачи. Гарантию на разум не даём: статистика пока один из двухсот миллиардов.</p></div></div>
+      </div>
+      <div class="qa" data-reveal>
+        <button class="qa__q" type="button" aria-expanded="false"><span>Можно планету в форме куба?</span><i aria-hidden="true"></i></button>
+        <div class="qa__a"><div><p>Гравитация против. Мы пробовали: она скругляет всё, что тяжелее 10²¹ кг. Углы приходится срезать — буквально.</p></div></div>
+      </div>
+      <div class="qa" data-reveal>
+        <button class="qa__q" type="button" aria-expanded="false"><span>Этот сайт — настоящий?</span><i aria-hidden="true"></i></button>
+        <div class="qa__a"><div><p>Сайт — да. Планеты на нём считаются в вашей видеокарте шестьдесят раз в секунду: рельеф, облака, рассеяние света в атмосфере. Ателье — пока нет. Но мы над этим работаем.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 08 · РАССВЕТ ============ -->
+  <section class="final" id="order" data-sec="final" data-title="Рассвет">
+    <div class="final__pin">
+      <p class="final__eyebrow mono">Мир <b id="finName">«Терра Нова»</b> ждёт сборки</p>
+      <h2 class="final__title" aria-label="Да будет мир">
+        <span class="final__l1" data-split aria-hidden="true">ДА БУДЕТ</span>
+        <span class="final__l2" data-split aria-hidden="true"><em>мир</em></span>
+      </h2>
+      <form class="order" id="orderForm" novalidate>
+        <label class="order__field">
+          <span class="mono">Название мира</span>
+          <input id="orderWorld" name="world" type="text" maxlength="16" autocomplete="off" spellcheck="false" value="Терра Нова">
+        </label>
+        <label class="order__field">
+          <span class="mono">Как с вами связаться</span>
+          <input id="orderContact" name="contact" type="text" maxlength="60" autocomplete="off" placeholder="почта, радиосигнал, телепатия">
+        </label>
+        <button class="btn btn--primary btn--lg" type="submit" data-magnetic><span>Заказать мир</span><i class="btn__arrow" aria-hidden="true">↗</i></button>
+      </form>
+      <p class="final__fine mono">Это демонстрация: форма никуда ничего не отправляет. Но ждать 4,5 млрд лет всё равно придётся.</p>
+    </div>
+  </section>
+</main>
+
+<!-- ============ ПОДВАЛ ============ -->
+<footer class="foot" id="foot">
+  <div class="foot__word" aria-hidden="true">ДЕМИУРГ</div>
+  <div class="foot__cols">
+    <div>
+      <span class="mono">Адрес</span>
+      <p>Млечный Путь, рукав Ориона.<br>Третья планета от Солнца,<br>вход со стороны Луны.</p>
+    </div>
+    <div>
+      <span class="mono">Часы работы</span>
+      <p>Всегда.<br>Времени не существует.</p>
+    </div>
+    <div>
+      <span class="mono">Разделы</span>
+      <p><a href="#worlds">Миры</a><br><a href="#workshop">Мастерская</a><br><a href="#process">Процесс</a><br><a href="#pricing">Тарифы</a></p>
+    </div>
+    <div>
+      <span class="mono">Связь</span>
+      <p>Радиосигнал на 1420 МГц.<br>Отвечаем в течение<br>светового года.</p>
+    </div>
+  </div>
+  <div class="foot__bottom mono">
+    <span>© 13 800 000 000 до н. э. — 2026</span>
+    <span>Не является офертой. Является частной вселенной.</span>
+    <button class="foot__bang" id="bangBtn" type="button">↺ Большой взрыв — начать заново</button>
+  </div>
+</footer>
+
+<!-- ============ СЛУЖЕБНОЕ ============ -->
+<div class="hud" id="hud" aria-hidden="true">
+  <div class="hud__sec mono"><b id="hudIdx">00</b><span id="hudName">Орбита</span></div>
+  <div class="hud__rail" id="hudRail"><i></i></div>
+  <div class="hud__fps mono"><span id="hudFps">60</span> к/с · рендер <span id="hudRes">100</span>%</div>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><i class="cursor__dot"></i><i class="cursor__ring"><span id="cursorLabel"></span></i></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog class="done" id="doneDialog" aria-labelledby="doneTitle">
+  <div class="done__in">
+    <p class="mono">Заявка № <b id="doneNo">000 000 003</b></p>
+    <h3 id="doneTitle">Мир <em id="doneName">«Терра Нова»</em> поставлен в очередь</h3>
+    <p id="doneText">Ориентировочная готовность — через 4,5 млрд лет. Мы сообщим, когда остынет кора.</p>
+    <button class="btn btn--primary" id="doneClose" type="button"><span>Буду ждать</span></button>
+  </div>
+</dialog>
+
+<script src="js/util.js"></script>
+<script src="js/noise.js"></script>
+<script src="js/shaders.js"></script>
+<script src="js/renderer.js"></script>
+<script src="js/worlds.js"></script>
+<script src="js/scroll.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/viz.js"></script>
+<script src="js/workshop.js"></script>
+<script src="js/main.js"></script>
+<script src="../back.js" data-href="../../index.html#p3"></script>
+</body>
+</html>
