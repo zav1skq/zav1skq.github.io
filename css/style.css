@@ -46,6 +46,9 @@ ul, ol { list-style: none; }
 #px { position: fixed; inset: 0; z-index: 0; width: 100vw; height: 100vh; display: block; }
 /* дым: маленький холст, растянутый на весь экран, — мягкий и почти бесплатный для видеокарты */
 #smoke { position: fixed; inset: 0; z-index: 0; width: 100vw; height: 100vh; display: block; pointer-events: none; opacity: var(--smoke-o); transition: opacity .8s; }
+/* зона захвата пальца над словом из частиц (телефоны): пока палец ведёт по частицам, страница не листается */
+#grab { position: fixed; left: 0; top: 0; z-index: 3; display: none; touch-action: none; -webkit-tap-highlight-color: transparent; }
+#grab.on { display: block; }
 .fx-scan { position: fixed; inset: 0; z-index: 80; pointer-events: none; background: repeating-linear-gradient(180deg, var(--scan) 0 1px, transparent 1px 3px); }
 .fx-vig { position: fixed; inset: 0; z-index: 79; pointer-events: none; background: radial-gradient(ellipse at center, transparent 48%, var(--vig)); }
 .fx-noise { position: fixed; inset: -50%; z-index: 81; pointer-events: none; opacity: .06; animation: noise .4s steps(4) infinite;
