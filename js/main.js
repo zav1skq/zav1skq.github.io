@@ -119,10 +119,30 @@
     }
     wake(2500);
   }
+  let wb = null;                                      // рамка текущего слова (без сдвига прокрутки)
   function target(idx, doKick) {
     const s = steps[idx], pts = points(s.dataset.word, +s.dataset.y || .22), L = pts.length;
     for (let k = 0; k < CAP; k++) { const t = pts[k % L], dup = k >= L; TX[k] = t[0] + (dup ? (Math.random() - .5) * 3 : 0); TY[k] = t[1] + (dup ? (Math.random() - .5) * 3 : 0); }
+    let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+    for (let k = 0; k < L; k++) { const p = pts[k]; if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }
+    wb = L > 1 ? { x0, y0, x1, y1 } : null;
     if (doKick) kick(14); else wake();
+  }
+
+  // На телефоне: невидимая зона поверх слова из частиц с touch-action: none.
+  // Палец, начавший движение на частицах, гоняет их, а страница стоит. Свайп в любом другом месте листает как обычно.
+  // Зона включается, только когда слово «приклеено» к своему разделу и не может перекрыть кнопки и текст.
+  const grab = coarse ? $('#grab') : null;
+  function placeGrab() {
+    if (!grab) return;
+    const vh = innerHeight, top = tops[active] - scrollY, pad = 18;
+    const ok = !!wb && !dust && !reduce && top <= vh * .25 && top >= -vh * .5 && wb.y1 + offYT > 0;
+    grab.classList.toggle('on', ok);
+    if (ok) {
+      grab.style.transform = `translate(${Math.round(wb.x0 - pad)}px, ${Math.round(wb.y0 + offYT - pad)}px)`;
+      grab.style.width = Math.round(wb.x1 - wb.x0 + pad * 2) + 'px';
+      grab.style.height = Math.round(wb.y1 - wb.y0 + pad * 2) + 'px';
+    }
   }
   function resize() {
     W = innerWidth; H = innerHeight; cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -260,6 +280,7 @@
     }
     if (nd !== dust) { dust = nd; if (!dust) kick(6); }
     wake(900);
+    placeGrab();
     const sp = Math.round(y / ((docH - vh) || 1) * 100);
     if (sp !== spLast) { spLast = sp; $('#sp').textContent = pad(sp, 3); }
   }
