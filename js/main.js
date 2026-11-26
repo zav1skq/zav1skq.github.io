@@ -79,7 +79,7 @@
     PH = new Float32Array(CAP), KK = new Float32Array(CAP), SZ = new Float32Array(CAP);
   for (let i = 0; i < CAP; i++) {
     X[i] = Math.random() * innerWidth; Y[i] = Math.random() * innerHeight; PH[i] = Math.random() * 6.283; KK[i] = .55 + Math.random() * .9;
-    const big = Math.random() < .18; SZ[i] = pix ? (big ? 3 : 2) : (big ? 2.6 : 1.8);
+    SZ[i] = Math.random() < .18 ? 1 : 0;           // 1 — крупная частица (на пиксель больше)
   }
   const cv = $('#px'), ctx = cv.getContext('2d', { alpha: false });
   if (pix) cv.style.imageRendering = 'pixelated';
@@ -167,6 +167,8 @@
     const hasM = mouse.x > -999, mx = mouse.x, my = mouse.y;
     const R = W < 760 ? 70 : 115, R2 = R * R, ks = dust ? .0045 : .016;
     const n0 = N * .68 | 0, n1 = n0 + (N * .22 | 0), bounds = [0, n0, n1, N], cols = [C.p, C.s, C.f];
+    // размер частицы = шаг сетки слова − 1 px (+1 у крупных): буквы выглядят плотными, «насыпанными», как на телефоне
+    const s0 = (W < 760 ? 3 : 4) - 1;
     let en = 0;
     ctx.globalAlpha = fade;
     for (let c = 0; c < 3; c++) {
@@ -183,7 +185,7 @@
         VX[i] = vx; VY[i] = vy; x += vx; y += vy; X[i] = x; Y[i] = y;
         en += (vx < 0 ? -vx : vx) + (vy < 0 ? -vy : vy);
         if (gl) for (let j = 0; j < gl.length; j++) { const bd = gl[j]; if (y > bd.y && y < bd.y + bd.h) { x += bd.dx; break; } }
-        if (pix) ctx.fillRect(x | 0, y | 0, SZ[i], SZ[i]); else ctx.fillRect(x, y, SZ[i], SZ[i]);
+        const sz = s0 + SZ[i]; ctx.fillRect(x | 0, y | 0, sz, sz);
       }
     }
     energy = en;
@@ -203,7 +205,10 @@
   let SW = 0, SH = 0, sLast = 0;
   const puffs = Array.from({ length: 7 }, () => ({ x: Math.random(), y: Math.random() * 1.4 - .2, r: .3 + Math.random() * .38, ph: Math.random() * 6.283, sp: .6 + Math.random() * .8 }));
   const trail = { x: .5, y: .5, a: 0 };            // клуб дыма, который тянется за курсором или пальцем
-  function smokeSize() { SW = 192; SH = Math.max(60, Math.round(SW * (H || 1) / (W || 1))); sm.width = SW; sm.height = SH; sLast = 0; }
+  // RS — масштаб облаков от площади экрана, а не от ширины: на широком мониторе дым не затягивает весь экран,
+  // плотность такая же, как на телефоне
+  let RS = 130;
+  function smokeSize() { SW = 192; SH = Math.max(60, Math.round(SW * (H || 1) / (W || 1))); RS = Math.sqrt(SW * SH) * .68; sm.width = SW; sm.height = SH; sLast = 0; }
   function smokeReset() { sLast = 0; if (!C.smokeA && SW) sctx.clearRect(0, 0, SW, SH); }
   function puff(x, y, rr, a) {
     const g = sctx.createRadialGradient(x, y, 0, x, y, rr);
@@ -220,7 +225,7 @@
       const t = now * .00004 * p.sp;
       const x = (p.x + Math.sin(t + p.ph) * .22) * SW;
       const y = ((((p.y - par * p.sp + Math.cos(t * 1.3 + p.ph) * .12) % 1.6) + 1.6) % 1.6 - .3) * SH;
-      puff(x, y, p.r * SW * (1 + .18 * Math.sin(t * 2 + p.ph)), .5);
+      puff(x, y, p.r * RS * (1 + .18 * Math.sin(t * 2 + p.ph)), .5);
     }
     if (mouse.x > -999) { trail.x += (mouse.x / W - trail.x) * .07; trail.y += (mouse.y / H - trail.y) * .07; trail.a += (.4 - trail.a) * .06; } else trail.a *= .94;
     if (trail.a > .02) puff(trail.x * SW, trail.y * SH, SW * .13, trail.a);
