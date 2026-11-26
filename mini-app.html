@@ -1,25 +1,29 @@
 <!doctype html>
-<html lang="ru" data-theme="neon">
+<html lang="ru" data-theme="ash">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mini App фитнес-клуба — демо · Nikita Zavarzin</title>
 <meta name="description" content="Живое демо Telegram Mini App фитнес-клуба: расписание, запись, тренеры и цены.">
-<meta name="theme-color" content="#09050f">
+<meta name="theme-color" content="#0f0e0d">
 <meta name="color-scheme" content="dark">
 <!-- на телефоне сразу открываем само приложение на весь экран -->
 <script>if (innerWidth < 760) location.replace('projects/fitness/index.html');</script>
-<script>(function(d){try{var t=localStorage.getItem('zv-theme');if(/^(neon|yellow|red|acid)$/.test(t))d.dataset.theme=t}catch(e){}})(document.documentElement)</script>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M7 0h25v25l-7 7H0V7z' fill='%23ff2bd6'/%3E%3Cpath d='M10 10h12L10 22h12' fill='none' stroke='%2309050f' stroke-width='3.4'/%3E%3C/svg%3E">
+<script>(function(d){try{var t=localStorage.getItem('zv-theme2');if(/^(neon|yellow|red|acid|ash|smoke|ember|fog)$/.test(t))d.dataset.theme=t}catch(e){}})(document.documentElement)</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M7 0h25v25l-7 7H0V7z' fill='%23d8d1c6'/%3E%3Cpath d='M10 10h12L10 22h12' fill='none' stroke='%230f0e0d' stroke-width='3.4'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
 <style>
+:root { --line: color-mix(in srgb, var(--p) 22%, transparent); --glow: color-mix(in srgb, var(--p) 55%, transparent); --on-p: #000; --vig: rgba(0, 0, 0, .7); --gx: clamp(24px, 5vw, 80px); }
 :root, [data-theme="neon"] { --p: #ff2bd6; --s: #00e5ff; --a: #fff200; --bg: #09050f; --fg: #f6eefe; --dim: #8f84a6; }
 [data-theme="yellow"] { --p: #fcee0a; --s: #00f0ff; --a: #ff003c; --bg: #07080a; --fg: #f3f3e9; --dim: #86887c; }
 [data-theme="red"]    { --p: #ff2244; --s: #e9eef5; --a: #ff8a00; --bg: #0b0405; --fg: #f7eeee; --dim: #9c8588; }
 [data-theme="acid"]   { --p: #c8ff3d; --s: #9b6bff; --a: #00f0ff; --bg: #050607; --fg: #eef3e6; --dim: #7f8977; }
-:root { --line: color-mix(in srgb, var(--p) 22%, transparent); --glow: color-mix(in srgb, var(--p) 55%, transparent); --gx: clamp(24px, 5vw, 80px); }
+[data-theme="ash"]    { --p: #d8d1c6; --s: #8d857a; --a: #ff7a3d; --bg: #0f0e0d; --fg: #ece7e0; --dim: #8a8279; --glow: color-mix(in srgb, var(--p) 28%, transparent); }
+[data-theme="smoke"]  { --p: #cfd6df; --s: #6f7b8b; --a: #9fd8ff; --bg: #0c0d10; --fg: #e7eaee; --dim: #7c848f; --glow: color-mix(in srgb, var(--p) 28%, transparent); }
+[data-theme="ember"]  { --p: #ff5b24; --s: #9d958c; --a: #ffb38a; --bg: #0e0b0a; --fg: #efe8e1; --dim: #8d837b; --glow: color-mix(in srgb, var(--p) 45%, transparent); }
+[data-theme="fog"]    { --p: #1e1d1c; --s: #75706a; --a: #c2412b; --bg: #cfccc6; --fg: #171615; --dim: #5e5953; --on-p: #efece7; --vig: rgba(80, 72, 64, .3); --glow: color-mix(in srgb, var(--p) 18%, transparent); }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { background: var(--bg); }
 body { min-height: 100vh; color: var(--fg); font: 400 14px/1.6 'JetBrains Mono', ui-monospace, monospace; overflow-x: hidden; }
@@ -29,19 +33,19 @@ ul { list-style: none; }
 @keyframes blink { 50% { opacity: 0; } }
 
 .fx-scan { position: fixed; inset: 0; z-index: 50; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(255, 255, 255, .025) 0 1px, transparent 1px 3px); }
-.fx-vig { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(ellipse at 70% 45%, color-mix(in srgb, var(--p) 16%, transparent), transparent 55%), radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, .7)); }
+.fx-vig { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(ellipse at 70% 45%, color-mix(in srgb, var(--p) 16%, transparent), transparent 55%), radial-gradient(ellipse at center, transparent 50%, var(--vig)); }
 .floor { position: fixed; left: 0; right: 0; bottom: 0; height: 30vh; z-index: 0; overflow: hidden; perspective: 320px; perspective-origin: 50% 0; pointer-events: none; -webkit-mask-image: linear-gradient(transparent, #000 40%); mask-image: linear-gradient(transparent, #000 40%); opacity: .5; }
 .floor i { position: absolute; left: -80%; right: -80%; bottom: 0; height: 300%; transform: rotateX(74deg); transform-origin: 50% 100%;
   background-image: linear-gradient(color-mix(in srgb, var(--s) 70%, transparent) 1.5px, transparent 1.5px), linear-gradient(90deg, color-mix(in srgb, var(--s) 70%, transparent) 1.5px, transparent 1.5px);
   background-size: 64px 64px; animation: floor 1.4s linear infinite; }
-@keyframes floor { to { background-position: 0 64px; } }
+@keyframes floor { from { transform: rotateX(74deg) translateY(0); } to { transform: rotateX(74deg) translateY(64px); } }
 
 .top { position: fixed; top: 0; left: 0; right: 0; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px var(--gx); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim);
   background: linear-gradient(var(--bg) 40%, transparent); }
 .top b { color: var(--p); font-weight: 500; }
 .top .dot { display: inline-block; width: 6px; height: 6px; margin-right: 8px; border-radius: 50%; background: var(--p); box-shadow: 0 0 8px var(--p); animation: blink 1.2s infinite; vertical-align: 1px; }
 .back { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 10px; border: 1px solid var(--line); color: var(--p); transition: background .2s, color .2s, border-color .2s; }
-.back:hover { background: var(--p); color: #000; border-color: var(--p); }
+.back:hover { background: var(--p); color: var(--on-p); border-color: var(--p); }
 .back i { font-style: normal; font-size: 16px; line-height: .8; }
 
 .wrap { position: relative; z-index: 1; min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 40px clamp(32px, 5vw, 90px); padding: 84px var(--gx) 40px; max-width: 1360px; margin: 0 auto; }
@@ -57,8 +61,8 @@ h1 span { display: block; color: var(--p); text-shadow: 0 0 26px var(--glow), -1
 .btn { --c: 12px; position: relative; isolation: isolate; display: inline-flex; align-items: center; gap: 12px; padding: 15px 22px; font-weight: 700; font-size: 12.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--p);
   background: var(--p); clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); }
 .btn::before { content: ''; position: absolute; inset: 1px; z-index: -1; background: var(--bg); clip-path: inherit; transition: opacity .25s; }
-.btn:hover { color: #000; } .btn:hover::before { opacity: 0; }
-.btn--p { color: #000; } .btn--p::before { opacity: 0; }
+.btn:hover { color: var(--on-p); } .btn:hover::before { opacity: 0; }
+.btn--p { color: var(--on-p); } .btn--p::before { opacity: 0; }
 .btn--p:hover { color: var(--p); } .btn--p:hover::before { opacity: 1; }
 
 /* телефон */

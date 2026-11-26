@@ -1,5 +1,5 @@
-/* Mr.Dober — Telegram Mini App.
-   Палитра сайта mr-dober.ru: чёрный #0D0D0D, лаймовый #BFD452, белый. */
+/* PULSE — демо Telegram Mini App для портфолио.
+   Палитра: чёрный #0D0D0D, мятный #3EE6B5, белый. */
 
 :root {
   --bg: #0d0d0d;
@@ -12,10 +12,10 @@
   --text: #fff;
   --text-2: rgba(255, 255, 255, .72);
   --text-3: rgba(255, 255, 255, .46);
-  --acc: #bfd452;
-  --acc-ink: #10130a;
-  --acc-soft: rgba(191, 212, 82, .12);
-  --acc-line: rgba(191, 212, 82, .3);
+  --acc: #3ee6b5;
+  --acc-ink: #04201a;
+  --acc-soft: rgba(62, 230, 181, .12);
+  --acc-line: rgba(62, 230, 181, .3);
   --warn: #f0b24d;
   --warn-soft: rgba(240, 178, 77, .12);
   --danger: #ff6b5e;
@@ -61,7 +61,7 @@ img { display: block; max-width: 100%; }
   position: fixed;
   inset: 0 0 auto 0;
   height: 340px;
-  background: radial-gradient(110% 100% at 85% -25%, rgba(191, 212, 82, .17), transparent 62%);
+  background: radial-gradient(110% 100% at 85% -25%, rgba(62, 230, 181, .17), transparent 62%);
   pointer-events: none;
   z-index: 0;
 }
@@ -176,7 +176,7 @@ img { display: block; max-width: 100%; }
   position: absolute; inset: 0; z-index: -1;
   background:
     linear-gradient(180deg, rgba(13, 13, 13, .5) 0%, rgba(13, 13, 13, .12) 26%, rgba(13, 13, 13, .82) 62%, rgba(13, 13, 13, .97) 100%),
-    linear-gradient(120deg, rgba(191, 212, 82, .2), transparent 55%);
+    linear-gradient(120deg, rgba(62, 230, 181, .2), transparent 55%);
 }
 .live {
   align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;
@@ -185,8 +185,8 @@ img { display: block; max-width: 100%; }
   -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
   font-size: 13px; font-weight: 600;
 }
-.live i { width: 7px; height: 7px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 0 0 rgba(191, 212, 82, .7); animation: pulse 1.8s infinite; }
-@keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(191, 212, 82, 0); } 100% { box-shadow: 0 0 0 0 rgba(191, 212, 82, 0); } }
+.live i { width: 7px; height: 7px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 0 0 rgba(62, 230, 181, .7); animation: pulse 1.8s infinite; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 8px rgba(62, 230, 181, 0); } 100% { box-shadow: 0 0 0 0 rgba(62, 230, 181, 0); } }
 .hero-title {
   display: block; margin-top: auto; padding-top: 96px;
   font-family: var(--display); font-size: 29px; font-weight: 800; line-height: 1.04;
@@ -210,7 +210,7 @@ img { display: block; max-width: 100%; }
   display: flex; align-items: center; gap: 14px; width: 100%;
   margin-top: 12px; padding: 12px 14px 12px 12px;
   border-radius: var(--r-lg);
-  background: linear-gradient(120deg, rgba(191, 212, 82, .16), rgba(191, 212, 82, .04));
+  background: linear-gradient(120deg, rgba(62, 230, 181, .16), rgba(62, 230, 181, .04));
   border: 1px solid var(--acc-line);
 }
 .next > .ic { color: var(--text-3); }
@@ -232,7 +232,7 @@ img { display: block; max-width: 100%; }
   padding: 14px; border-radius: 20px;
   background: var(--card); border: 1px solid var(--line);
 }
-.now-card.mine { border-color: var(--acc-line); background: linear-gradient(160deg, rgba(191, 212, 82, .12), var(--card) 60%); }
+.now-card.mine { border-color: var(--acc-line); background: linear-gradient(160deg, rgba(62, 230, 181, .12), var(--card) 60%); }
 .now-top { display: flex; align-items: baseline; justify-content: space-between; }
 .now-top b { font-family: var(--display); font-size: 19px; font-weight: 700; letter-spacing: -.01em; }
 .now-top span { font-size: 12px; color: var(--text-3); }
@@ -352,10 +352,10 @@ img { display: block; max-width: 100%; }
   transition: transform .15s, border-color .2s;
 }
 .slot:active .slot-card { transform: scale(.985); }
-.slot.mine .slot-card { border-color: var(--acc-line); background: linear-gradient(155deg, rgba(191, 212, 82, .13), var(--card) 58%); }
+.slot.mine .slot-card { border-color: var(--acc-line); background: linear-gradient(155deg, rgba(62, 230, 181, .13), var(--card) 58%); }
 .slot.ended { opacity: .48; }
 .slot.flash .slot-card { animation: flash .9s; }
-@keyframes flash { 30% { box-shadow: 0 0 0 3px rgba(191, 212, 82, .45); } }
+@keyframes flash { 30% { box-shadow: 0 0 0 3px rgba(62, 230, 181, .45); } }
 .slot-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .tag {
   display: inline-flex; align-items: center; gap: 6px;
@@ -480,7 +480,7 @@ img { display: block; max-width: 100%; }
 .seg button.on { background: var(--acc); color: var(--acc-ink); }
 .price-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
 .price { padding: 14px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); }
-.price.best { border-color: var(--acc-line); background: linear-gradient(150deg, rgba(191, 212, 82, .12), var(--card) 60%); }
+.price.best { border-color: var(--acc-line); background: linear-gradient(150deg, rgba(62, 230, 181, .12), var(--card) 60%); }
 .price-h { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; }
 .price-h b { font-size: 15.5px; font-weight: 700; }
 .price-h span { font-size: 12.5px; color: var(--text-3); }
@@ -533,12 +533,12 @@ img { display: block; max-width: 100%; }
 .sh-scroll.swap { animation: scr .28s; }
 .sh-footer { padding: 12px 18px calc(12px + var(--safe-b)); border-top: 1px solid var(--line); background: var(--sheet); }
 
-.sh-photo { position: relative; height: 216px; margin: 0 -18px; overflow: hidden; background: linear-gradient(150deg, #2a3113, #141414); }
+.sh-photo { position: relative; height: 216px; margin: 0 -18px; overflow: hidden; background: linear-gradient(150deg, #0f2a22, #141414); }
 .sh-photo img { position: relative; width: 100%; height: 100%; object-fit: cover; }
 .sh-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20, 20, 20, .3) 0%, rgba(20, 20, 20, 0) 32%, rgba(20, 20, 20, .78) 80%, var(--sheet) 100%); }
-.ph-ic { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(191, 212, 82, .22); }
+.ph-ic { position: absolute; inset: 0; display: grid; place-items: center; color: rgba(62, 230, 181, .22); }
 .ph-ic .ic { width: 104px; height: 104px; stroke-width: 1.1; }
-.ph-ini { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--display); font-size: 58px; font-weight: 800; color: rgba(191, 212, 82, .28); }
+.ph-ini { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--display); font-size: 58px; font-weight: 800; color: rgba(62, 230, 181, .28); }
 .sh-photo.tall { height: 350px; }
 .sh-photo.tall img { object-position: 50% 12%; }
 .sh-photo.low { height: 170px; }
@@ -561,7 +561,7 @@ img { display: block; max-width: 100%; }
 .sh-block-head .acc { color: var(--acc); font-size: 13.5px; font-weight: 600; }
 .segs { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 5px; }
 .segs i { height: 22px; border-radius: 7px; background: rgba(255, 255, 255, .07); }
-.segs i.on { background: rgba(191, 212, 82, .6); }
+.segs i.on { background: rgba(62, 230, 181, .6); }
 .segs i.me { background: #fff; box-shadow: 0 0 14px rgba(255, 255, 255, .45); }
 .hint { display: block; margin-top: 8px; font-size: 12.5px; color: var(--text-3); }
 

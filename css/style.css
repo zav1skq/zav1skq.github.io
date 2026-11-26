@@ -2,16 +2,32 @@
    Портфолио Nikita Zavarzin — киберпанк + частицы
    Цвета палитр — сразу ниже. --p основной, --s второй, --a акцент.
    ========================================================= */
+/* общие значения — до палитр, чтобы палитры могли их переопределить */
+:root {
+  --line: color-mix(in srgb, var(--p) 22%, transparent);
+  --glow: color-mix(in srgb, var(--p) 55%, transparent);
+  --on-p: #000;                                   /* цвет текста на кнопках цвета --p */
+  --vig: rgba(0, 0, 0, .72);                      /* затемнение по краям экрана */
+  --scan: rgba(255, 255, 255, .03);               /* сканлайны */
+  --smoke: 255, 255, 255; --smoke-o: 0;           /* дым на фоне: цвет (r, g, b) и плотность, 0 — без дыма */
+  --gx: clamp(20px, 5.5vw, 96px);
+  --cut: 22px;
+}
+/* неоновые палитры */
 :root, [data-theme="neon"] { --p: #ff2bd6; --s: #00e5ff; --a: #fff200; --bg: #09050f; --bg2: #130a1e; --fg: #f6eefe; --dim: #8f84a6; }
 [data-theme="yellow"] { --p: #fcee0a; --s: #00f0ff; --a: #ff003c; --bg: #07080a; --bg2: #101216; --fg: #f3f3e9; --dim: #86887c; }
 [data-theme="red"]    { --p: #ff2244; --s: #e9eef5; --a: #ff8a00; --bg: #0b0405; --bg2: #170a0d; --fg: #f7eeee; --dim: #9c8588; }
 [data-theme="acid"]   { --p: #c8ff3d; --s: #9b6bff; --a: #00f0ff; --bg: #050607; --bg2: #0d100b; --fg: #eef3e6; --dim: #7f8977; }
-:root {
-  --line: color-mix(in srgb, var(--p) 22%, transparent);
-  --glow: color-mix(in srgb, var(--p) 55%, transparent);
-  --gx: clamp(20px, 5.5vw, 96px);
-  --cut: 22px;
-}
+/* пепельно-дымные палитры */
+[data-theme="ash"]   { --p: #d8d1c6; --s: #8d857a; --a: #ff7a3d; --bg: #0f0e0d; --bg2: #1a1816; --fg: #ece7e0; --dim: #8a8279;
+  --glow: color-mix(in srgb, var(--p) 28%, transparent); --smoke: 222, 214, 202; --smoke-o: .5; }
+[data-theme="smoke"] { --p: #cfd6df; --s: #6f7b8b; --a: #9fd8ff; --bg: #0c0d10; --bg2: #15171b; --fg: #e7eaee; --dim: #7c848f;
+  --glow: color-mix(in srgb, var(--p) 28%, transparent); --smoke: 198, 208, 222; --smoke-o: .55; }
+[data-theme="ember"] { --p: #ff5b24; --s: #9d958c; --a: #ffb38a; --bg: #0e0b0a; --bg2: #191412; --fg: #efe8e1; --dim: #8d837b;
+  --glow: color-mix(in srgb, var(--p) 45%, transparent); --smoke: 178, 166, 156; --smoke-o: .45; }
+[data-theme="fog"]   { --p: #1e1d1c; --s: #75706a; --a: #c2412b; --bg: #cfccc6; --bg2: #dcd9d4; --fg: #171615; --dim: #5e5953;
+  --on-p: #efece7; --vig: rgba(80, 72, 64, .32); --scan: rgba(0, 0, 0, .035);
+  --glow: color-mix(in srgb, var(--p) 18%, transparent); --smoke: 252, 250, 247; --smoke-o: .8; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { background: var(--bg); scroll-behavior: smooth; transition: background-color .4s; }
@@ -22,14 +38,16 @@ a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
 button { font: inherit; color: inherit; background: none; border: 0; }
 ul, ol { list-style: none; }
-::selection { background: var(--p); color: #000; }
+::selection { background: var(--p); color: var(--on-p); }
 :focus-visible { outline: 1px solid var(--p); outline-offset: 3px; }
 @keyframes blink { 50% { opacity: 0; } }
 
 /* ================= ФОНОВЫЕ ЭФФЕКТЫ ================= */
 #px { position: fixed; inset: 0; z-index: 0; width: 100vw; height: 100vh; display: block; }
-.fx-scan { position: fixed; inset: 0; z-index: 80; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(255, 255, 255, .03) 0 1px, transparent 1px 3px); }
-.fx-vig { position: fixed; inset: 0; z-index: 79; pointer-events: none; background: radial-gradient(ellipse at center, transparent 48%, rgba(0, 0, 0, .72)); }
+/* дым: маленький холст, растянутый на весь экран, — мягкий и почти бесплатный для видеокарты */
+#smoke { position: fixed; inset: 0; z-index: 0; width: 100vw; height: 100vh; display: block; pointer-events: none; opacity: var(--smoke-o); transition: opacity .8s; }
+.fx-scan { position: fixed; inset: 0; z-index: 80; pointer-events: none; background: repeating-linear-gradient(180deg, var(--scan) 0 1px, transparent 1px 3px); }
+.fx-vig { position: fixed; inset: 0; z-index: 79; pointer-events: none; background: radial-gradient(ellipse at center, transparent 48%, var(--vig)); }
 .fx-noise { position: fixed; inset: -50%; z-index: 81; pointer-events: none; opacity: .06; animation: noise .4s steps(4) infinite;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
 @keyframes noise { 0% { transform: translate(0, 0); } 25% { transform: translate(-5%, 3%); } 50% { transform: translate(4%, -4%); } 75% { transform: translate(-3%, -2%); } }
@@ -67,7 +85,10 @@ ul, ol { list-style: none; }
 .snd.on i span { animation: eq .8s ease-in-out infinite alternate; }
 .snd.on i span:nth-child(2) { animation-delay: -.3s; } .snd.on i span:nth-child(3) { animation-delay: -.6s; }
 @keyframes eq { from { height: 20%; } to { height: 100%; } }
-@media (max-width: 760px) { .bar .opt, .bar.bot { display: none; } .bar { left: 30px; right: 30px; gap: 10px; } }
+@media (max-width: 760px) {
+  .bar .opt, .bar.bot { display: none; } .bar { left: 30px; right: 30px; gap: 10px; }
+  .pal { gap: 5px; } .pal button { width: 15px; height: 15px; } .snd > span { display: none; }
+}
 
 .side { position: fixed; right: clamp(22px, 2.4vw, 40px); top: 50%; z-index: 72; transform: translateY(-50%); display: grid; gap: 12px; justify-items: end; }
 .side button { display: flex; align-items: center; gap: 10px; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); transition: color .3s; }
@@ -119,6 +140,8 @@ main { position: relative; z-index: 1; }
 .gt::before, .gt::after { content: attr(data-text); position: absolute; inset: 0; pointer-events: none; }
 .gt::before { color: var(--s); clip-path: inset(0 0 100% 0); animation: gA 3.6s infinite steps(1); }
 .gt::after { color: var(--a); clip-path: inset(100% 0 0 0); animation: gB 3.6s infinite steps(1); }
+/* глитч крутится только у заголовков, которые сейчас на экране (класс .live ставит скрипт) — меньше работы браузеру */
+.js .gt:not(.live)::before, .js .gt:not(.live)::after { animation-play-state: paused; }
 .gt:nth-child(2)::before, .gt:nth-child(2)::after { animation-delay: -1.7s; }
 @keyframes gA { 0%, 84%, 100% { clip-path: inset(0 0 100% 0); transform: none; } 86% { clip-path: inset(12% 0 62% 0); transform: translate(-7px, -1px); } 88% { clip-path: inset(52% 0 22% 0); transform: translate(6px, 0); } 90% { clip-path: inset(78% 0 4% 0); transform: translate(-3px, 1px); } 92% { clip-path: inset(30% 0 46% 0); transform: translate(8px, 0); } }
 @keyframes gB { 0%, 85%, 100% { clip-path: inset(100% 0 0 0); transform: none; } 87% { clip-path: inset(64% 0 14% 0); transform: translate(6px, 1px); } 89% { clip-path: inset(6% 0 78% 0); transform: translate(-8px, 0); } 91% { clip-path: inset(40% 0 38% 0); transform: translate(4px, -1px); } 93% { clip-path: inset(84% 0 2% 0); transform: translate(-5px, 0); } }
@@ -127,10 +150,10 @@ main { position: relative; z-index: 1; }
 .btn { --c: 12px; position: relative; isolation: isolate; display: inline-flex; align-items: center; gap: 14px; padding: 15px 24px; font-weight: 700; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--p);
   background: var(--p); clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); transition: transform .2s; }
 .btn::before { content: ''; position: absolute; inset: 1px; z-index: -1; background: var(--bg); clip-path: inherit; transition: opacity .25s; }
-.btn:hover { color: #000; }
+.btn:hover { color: var(--on-p); }
 .btn:hover::before { opacity: 0; }
 .btn:active { transform: translateY(1px); }
-.btn--p { color: #000; }
+.btn--p { color: var(--on-p); }
 .btn--p::before { opacity: 0; }
 .btn--p:hover { color: var(--p); }
 .btn--p:hover::before { opacity: 1; }
@@ -166,14 +189,24 @@ main { position: relative; z-index: 1; }
 .floor::before { content: ''; position: absolute; left: 10%; right: 10%; top: 0; height: 2px; background: var(--s); box-shadow: 0 0 26px 6px var(--s); opacity: .55; border-radius: 50%; }
 .floor i { position: absolute; left: -80%; right: -80%; bottom: 0; height: 300%; transform: rotateX(74deg); transform-origin: 50% 100%;
   background-image: linear-gradient(color-mix(in srgb, var(--s) 70%, transparent) 1.5px, transparent 1.5px), linear-gradient(90deg, color-mix(in srgb, var(--s) 70%, transparent) 1.5px, transparent 1.5px);
-  background-size: 64px 64px; animation: floor 1.1s linear infinite; opacity: .9; filter: drop-shadow(0 0 3px var(--s)); }
-@keyframes floor { to { background-position: 0 64px; } }
+  background-size: 64px 64px; animation: floor 1.1s linear infinite; opacity: .9; filter: drop-shadow(0 0 3px var(--s)); will-change: transform; }
+/* двигаем саму плоскость, а не фон: так анимацию делает видеокарта без перерисовки */
+@keyframes floor { from { transform: rotateX(74deg) translateY(0); } to { transform: rotateX(74deg) translateY(64px); } }
+/* на телефонах — облегчённые эффекты */
+@media (pointer: coarse) {
+  .floor i { filter: none; }
+  .fx-noise { inset: 0; animation: none; }
+}
+/* классы ставит скрипт по мощности устройства: меньше полноэкранных слоёв — легче видеокарте при прокрутке */
+.lite .fx-noise { display: none; }
+.lite0 .fx-scan, .lite0 .floor::before { display: none; }
+.lite0 .hazard { box-shadow: none; }
 @media (max-width: 900px) { .hero { grid-template-columns: 1fr; padding-top: 42vh; } }
 
 /* полоса-предупреждение */
 .hz-wrap { position: relative; z-index: 2; overflow: hidden; padding: 4vh 0 2vh; }
-.hazard { position: relative; margin: 0 -4vw; transform: rotate(-2.2deg); background: var(--p); color: #000; overflow: hidden; box-shadow: 0 0 40px var(--glow); }
-.hazard::before, .hazard::after { content: ''; display: block; height: 10px; background: repeating-linear-gradient(-45deg, #000 0 10px, var(--p) 10px 20px); }
+.hazard { position: relative; margin: 0 -4vw; transform: rotate(-2.2deg); background: var(--p); color: var(--on-p); overflow: hidden; box-shadow: 0 0 40px var(--glow); }
+.hazard::before, .hazard::after { content: ''; display: block; height: 10px; background: repeating-linear-gradient(-45deg, var(--on-p) 0 10px, var(--p) 10px 20px); }
 .hazard__track { display: flex; width: max-content; animation: run 26s linear infinite; }
 .hazard__track span { padding: 12px 0; font: 900 clamp(15px, 1.6vw, 22px)/1 'Unbounded', sans-serif; white-space: nowrap; text-transform: uppercase; letter-spacing: -.01em; }
 @keyframes run { to { transform: translateX(-50%); } }
@@ -254,7 +287,7 @@ main { position: relative; z-index: 1; }
 .chips { display: flex; flex-wrap: wrap; gap: 7px; }
 .chips span { --c: 6px; padding: 5px 11px; font-size: 12px; background: color-mix(in srgb, var(--p) 9%, transparent); border: 1px solid color-mix(in srgb, var(--p) 32%, transparent);
   clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c)); transition: background .2s, color .2s; }
-.chips span:hover { background: var(--p); color: #000; }
+.chips span:hover { background: var(--p); color: var(--on-p); }
 .checks { padding: 8px 24px 16px; }
 .checks li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; padding: 11px 0; border-bottom: 1px dashed var(--line); font-size: 13.5px; }
 .checks li:last-child { border-bottom: 0; }

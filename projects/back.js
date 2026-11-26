@@ -14,9 +14,10 @@
   var fromPortfolio = ss.get('zv-warp') === '1'; ss.del('zv-warp');
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var theme = 'neon'; try { theme = localStorage.getItem('zv-theme') || 'neon'; } catch (e) { }
-  var T = { neon: ['#ff2bd6', '#09050f'], yellow: ['#fcee0a', '#07080a'], red: ['#ff2244', '#0b0405'], acid: ['#c8ff3d', '#050607'] }[theme] || ['#ff2bd6', '#09050f'];
-  var C = T[0], BG = T[1];
+  var theme = 'ash'; try { theme = localStorage.getItem('zv-theme2') || 'ash'; } catch (e) { }
+  var T = { neon: ['#ff2bd6', '#09050f'], yellow: ['#fcee0a', '#07080a'], red: ['#ff2244', '#0b0405'], acid: ['#c8ff3d', '#050607'],
+    ash: ['#d8d1c6', '#0f0e0d'], smoke: ['#cfd6df', '#0c0d10'], ember: ['#ff5b24', '#0e0b0a'], fog: ['#1e1d1c', '#cfccc6', '#efece7'] }[theme] || ['#d8d1c6', '#0f0e0d'];
+  var C = T[0], BG = T[1], ON = T[2] || '#000';
 
   window.zvBack = function () {
     ss.set('zv-back', '1');
@@ -31,8 +32,11 @@
     'box-shadow:0 0 18px ' + C + '55;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:padding .2s,background .2s,color .2s;cursor:pointer!important}' +
     '#zv-back span{writing-mode:vertical-rl;transform:rotate(180deg)}' +
     '#zv-back i{font-style:normal;font-size:17px;letter-spacing:0;line-height:.8}' +
-    '#zv-back:hover,#zv-back:focus-visible{padding-left:11px;background:' + C + ';color:#000;outline:none}' +
-    '@media (max-width:760px){#zv-back{padding:10px 5px 12px 3px;font-size:9.5px;gap:6px}}' +
+    '#zv-back:hover,#zv-back:focus-visible{padding-left:11px;background:' + C + ';color:' + ON + ';outline:none}' +
+    '#zv-back{transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .35s,padding .2s,background .2s,color .2s}' +
+    '#zv-back.zv-hide{transform:translate(-115%,-50%);opacity:0;pointer-events:none}' +
+    '@media (max-width:760px){#zv-back{top:auto;bottom:96px;transform:none;padding:9px 4px 10px 2px;font-size:9px;gap:5px;letter-spacing:.18em}' +
+    '#zv-back.zv-hide{transform:translateX(-115%)}}' +
     '#zv-in{position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:' + BG + ';animation:zvIn .6s cubic-bezier(.7,0,.3,1) .05s both}' +
     '#zv-in::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:' + C + ';box-shadow:0 0 18px 4px ' + C + '}' +
     '@keyframes zvIn{0%{clip-path:inset(0)}55%{clip-path:inset(49.5% 0 49.5% 0);opacity:1}100%{clip-path:inset(50% 0 50% 0);opacity:0}}';
@@ -47,6 +51,19 @@
       e.preventDefault(); window.zvBack();
     });
     document.body.appendChild(a);
+
+    // Прячем кнопку, когда страницу листают вниз (чтобы не закрывала текст), и показываем при прокрутке вверх или у самого верха.
+    var lastY = new WeakMap();
+    document.addEventListener('scroll', function (e) {
+      var t = e.target, win = t === document || t === document.documentElement || t === document.body;
+      var el = win ? document.scrollingElement || document.documentElement : t;
+      if (!el || el.scrollHeight <= el.clientHeight + 2) return;        // горизонтальные ленты и т.п. не считаем
+      var y = win ? (window.scrollY || el.scrollTop) : el.scrollTop, prev = lastY.has(el) ? lastY.get(el) : y;
+      lastY.set(el, y);
+      if (y < 80) a.classList.remove('zv-hide');
+      else if (y - prev > 3) a.classList.add('zv-hide');
+      else if (prev - y > 3) a.classList.remove('zv-hide');
+    }, { passive: true, capture: true });
   }
 
   if (fromPortfolio && !reduce) {

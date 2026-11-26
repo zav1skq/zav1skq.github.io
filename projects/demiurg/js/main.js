@@ -197,6 +197,18 @@
     });
   }
 
+  // гигантское имя мира должно помещаться по ширине: длинные имена на узких экранах уменьшаем
+  function fitGiant(layer) {
+    const giant = els.giant;
+    layer = layer || (giant && giant.lastElementChild);
+    if (!layer) return;
+    giant.style.fontSize = '';
+    const base = parseFloat(getComputedStyle(giant).fontSize);
+    const need = layer.getBoundingClientRect().width, avail = giant.clientWidth;
+    if (avail > 0 && need > avail) giant.style.fontSize = Math.floor(base * avail / need) + 'px';
+  }
+  window.addEventListener('resize', () => fitGiant());
+
   function setCatalog(idx, instant) {
     if (idx === cat.idx) return;
     const first = cat.idx < 0;
@@ -222,6 +234,7 @@
       layer.appendChild(o);
     });
     giant.appendChild(layer);
+    fitGiant(layer);
     void layer.offsetWidth;
     layer.classList.add('is-in');
 
@@ -638,6 +651,7 @@
       root.classList.add('no-gl');
     }
     if (document.fonts && document.fonts.ready) await Promise.race([document.fonts.ready, D.wait(2.5)]);
+    fitGiant();
     D.viz.init();
     D.ui.initAll();
     initPointer();
